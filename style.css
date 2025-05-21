@@ -1,0 +1,516 @@
+/* style.css */
+html, body {
+    height: 100%; 
+    margin: 0;
+    padding: 0;
+    overscroll-behavior-y: contain; 
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; 
+    line-height: 1.6;
+    background-color: #f0f2f5; 
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    padding: 15px; 
+    box-sizing: border-box; 
+    -webkit-tap-highlight-color: transparent; 
+}
+
+.app-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto; 
+    overflow-y: auto; 
+    -webkit-overflow-scrolling: touch; 
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e9ecef; 
+    padding-bottom: 15px;
+    margin-bottom: 25px; 
+}
+
+header h1 {
+    margin: 0;
+    color: #007acc;
+    font-size: 1.6em; 
+}
+
+.logo-container img {
+    height: 36px; 
+    width: auto;
+}
+
+#mode-selection h2 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    text-align: center; /* Ajout pour centrer le titre principal */
+}
+.mode-option-card h3 {
+    font-size: 1.2em;
+    margin-top: 0; 
+    color: #007acc; 
+    margin-bottom: 15px; 
+}
+.mode-option-card label { 
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold; /* Rendu gras pour plus de clarté */
+    color: #555;
+}
+.mode-option-card select { /* Styles unifiés pour select */
+    font-size: 0.95em; 
+    width: 90%; 
+    max-width: 280px; 
+    padding: 10px 12px; 
+    margin-bottom: 18px; 
+    border-radius: 5px; 
+    border: 1px solid #ccc; 
+    box-sizing: border-box; 
+    background-color: #fff;
+}
+.mode-option-card button { /* Styles unifiés pour les boutons dans les cartes */
+    display: inline-block;
+    width: auto;
+    min-width: 150px; /* Largeur minimale pour une bonne apparence */
+    padding: 12px 20px; /* Padding ajusté */
+    margin-top: 10px;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+.mode-option-card button:hover {
+    background-color: #005fa3;
+}
+
+#mode-selection { 
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    #mode-selection {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .mode-option-card {
+        flex: 1;
+        max-width: 48%;
+    }
+}
+
+/* Quiz Area Styles */
+#quiz-area {
+    margin-top: 20px;
+}
+
+.quiz-header-controls {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 10px; 
+    padding-bottom: 10px; 
+    border-bottom: 1px solid #e9ecef; 
+}
+
+.small-header-btn { 
+    padding: 6px 12px !important; 
+    font-size: 0.9em !important;  
+    background-color: #6c757d !important; 
+    color: white !important; 
+    border: none !important; 
+    width: auto !important; 
+    margin: 0 !important; 
+    border-radius: 5px !important;
+}
+.small-header-btn:hover {
+    background-color: #5a6268 !important;
+}
+
+#timer-display {
+    font-size: 1em; 
+    font-weight: bold;
+    text-align: right;
+    color: #dc3545; 
+}
+#timer-display.hidden { 
+    display: none !important;
+}
+
+#progress-bar-container {
+    width: 100%;
+    background-color: #e9ecef; 
+    border-radius: 20px; 
+    margin: 15px 0; 
+    height: 10px; 
+    overflow: hidden; 
+}
+
+#progress-bar {
+    width: 0%; 
+    height: 100%; 
+    background-color: #007acc; 
+    border-radius: 20px; 
+    transition: width 0.4s ease; 
+    line-height: 10px; 
+}
+
+#question-counter {
+    font-size: 0.85em; 
+    color: #6c757d; 
+    text-align: right;
+    margin-bottom: 15px; 
+}
+
+#question-text {
+    font-size: 1.15em; 
+    margin-bottom: 20px;
+    font-weight: 500; 
+    line-height: 1.5; 
+}
+
+#options-container .option-div {
+    margin-bottom: 12px; 
+    padding: 12px 15px; 
+    padding-right: 40px; 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    background-color: #f9f9f9; 
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out; 
+    display: flex; 
+    align-items: center; 
+    position: relative; 
+}
+#options-container .option-div:hover:not(.disabled-option) {
+    background-color: #e9e9e9;
+    border-color: #ccc;
+}
+#options-container .option-div input[type="radio"],
+#options-container .option-div input[type="checkbox"] {
+    margin-right: 12px;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+#options-container .option-div label {
+    vertical-align: middle;
+    flex-grow: 1;
+}
+
+.feedback-icon {
+    position: absolute; 
+    right: 12px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    font-size: 1.2em;
+    font-weight: bold; 
+}
+
+/* Styles for feedback on options in practice mode - AVEC !important */
+#options-container .option-div.user-selected.correct-choice {
+    background-color: #d4edda !important; 
+    border-color: #c3e6cb !important;
+    color: #155724 !important;
+    font-weight: bold !important;
+}
+.option-div.correct-choice .feedback-icon {
+    color: #155724 !important; 
+}
+
+#options-container .option-div.user-selected.incorrect-choice {
+    background-color: #f8d7da !important; 
+    border-color: #f5c6cb !important;
+    color: #721c24 !important;
+    font-weight: bold !important;
+}
+.option-div.incorrect-choice .feedback-icon {
+    color: #721c24 !important; 
+}
+
+#options-container .option-div.actual-correct { 
+    font-weight: bold !important;
+}
+#options-container .option-div.actual-correct:not(.user-selected.correct-choice) { 
+    background-color: #e2f0d9 !important; 
+    border: 1px solid #8fd19e !important; 
+}
+.option-div.actual-correct .feedback-icon { 
+    color: #155724 !important;
+}
+
+#options-container .option-div.disabled-option { 
+    cursor: default;
+    opacity: 0.9; 
+}
+#options-container .option-div.disabled-option:hover {
+    background-color: #f9f9f9; 
+    border-color: #ddd;
+}
+
+
+.navigation-buttons {
+    margin-top: 30px; 
+    display: flex; 
+    justify-content: space-between; 
+}
+.navigation-buttons button {
+    padding: 12px 25px; 
+    font-size: 1em;
+    font-weight: 500;
+    width: auto; 
+    background-color: #007acc; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+}
+.navigation-buttons button:hover { 
+    background-color: #005fa3;
+}
+.navigation-buttons button.hidden { 
+    display: none !important;
+}
+#prev-question-btn { 
+    background-color: #6c757d;
+}
+#prev-question-btn:hover { 
+    background-color: #5a6268;
+}
+.navigation-buttons button:only-child { 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#feedback-container {
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 6px; 
+    border-width: 1px; 
+    border-style: solid; 
+}
+#feedback-container.correct {
+    background-color: #dff0d8 !important;
+    border-color: #c3e6cb !important; 
+    color: #155724 !important;       
+}
+#feedback-container.incorrect {
+    background-color: #f8d7da !important; 
+    border-color: #f5c6cb !important;   
+    color: #721c24 !important;           
+}
+#feedback-container h4 {
+    margin-top: 0;
+    margin-bottom: 8px; 
+    font-weight: 600; 
+}
+
+#results-area h2, #review-area h2 { 
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+#results-area p {
+    font-size: 1.1em;
+    text-align: center;
+}
+#pass-fail-text.pass {
+    color: #155724; 
+    font-weight: bold;
+    font-size: 1.2em; 
+}
+#pass-fail-text.fail {
+    color: #721c24; 
+    font-weight: bold;
+    font-size: 1.2em; 
+}
+
+#review-summary {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    padding: 10px;
+}
+.summary-item {
+    padding: 5px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.summary-item:last-child {
+    border-bottom: none;
+}
+.summary-item.correct { color: #155724; }
+.summary-item.incorrect { color: #721c24; }
+.summary-item.not-answered { color: #777; font-style: italic; } 
+
+/* Styles pour les boutons dans les sections de résultats et de revue */
+#results-area .button-group,
+#review-area .button-group {
+    text-align: center; /* Centrer les boutons */
+    margin-top: 20px;
+}
+
+#results-area button, 
+#review-area button {
+    display: inline-block; 
+    width: auto;          
+    min-width: 160px;      /* Largeur minimale pour une bonne apparence */
+    padding: 10px 20px;   
+    margin: 10px 8px;      /* Marge pour espacement entre les boutons */
+    background-color: #007acc; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95em;       
+    font-weight: 500;      
+    transition: background-color 0.3s ease;
+    text-align: center;    
+}
+
+#results-area button:hover, 
+#review-area button:hover {
+    background-color: #005fa3; 
+}
+
+
+.hidden {
+    display: none !important;
+}
+
+/* Review Area Specifics */
+#review-content .review-question-block {
+    margin-bottom: 25px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+#review-content .review-question-block h4 {
+    margin-top: 0;
+    font-size: 1.1em;
+}
+#review-content .review-options .option-item {
+    padding: 8px 10px; 
+    margin: 3px 0;
+    border-radius: 4px; 
+    border: 1px solid transparent; 
+}
+#review-content .review-options .user-selected {
+    font-weight: bold;
+    border-color: #aaa; 
+}
+#review-content .review-options .correct-answer {
+    background-color: #d4edda; 
+    border-color: #c3e6cb !important; 
+    color: #155724;
+}
+#review-content .review-options .incorrect-selection.user-selected {
+    background-color: #f8d7da; 
+    border-color: #f5c6cb !important; 
+    color: #721c24;
+}
+
+#review-content .review-explanation {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #e7f3fe; 
+    border: 1px solid #cce5ff;
+    border-radius: 3px;
+    font-size: 0.95em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) { 
+    body {
+        padding: 10px; 
+    }
+    .app-container {
+        padding: 15px;
+        margin-top: 0; 
+        border-radius: 0; 
+    }
+    header h1 {
+        font-size: 1.4em; 
+    }
+    .logo-container img {
+        height: 32px;
+    }
+
+    #mode-selection {
+        flex-direction: column; 
+        gap: 15px;
+    }
+    .mode-option-card {
+        max-width: 100%; 
+        padding: 15px;
+    }
+    .mode-option-card select {
+        width: 100%; 
+        font-size: 1em; 
+    }
+     .mode-option-card button {
+        width: 100%; 
+        padding: 14px; 
+    }
+
+    #question-text {
+        font-size: 1.1em;
+    }
+    #options-container .option-div {
+        padding: 10px 12px;
+        padding-right: 35px;
+    }
+    .navigation-buttons button {
+        font-size: 0.95em;
+        padding: 10px 18px;
+    }
+    .small-header-btn {
+        font-size: 0.85em !important;
+        padding: 5px 10px !important;
+    }
+    #timer-display {
+        font-size: 0.95em;
+    }
+
+    #results-area .button-group,
+    #review-area .button-group {
+        display: flex;
+        flex-direction: column; /* Empiler les boutons sur mobile */
+        gap: 10px;
+    }
+
+    #results-area button, 
+    #review-area button {
+        width: 100%; 
+        margin: 5px 0; /* Ajuster les marges pour l'empilement vertical */
+        padding: 14px;
+    }
+}
+
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+input[type="email"],
+select,
+textarea {
+  font-size: 16px; 
+}
