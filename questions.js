@@ -840,7 +840,7 @@ const ALL_QUESTIONS = [
             { text: "Key stakeholders after approval from the Product Owner.", correct: false }
         ],
         explanation: "The Product Owner is accountable for the Product Backlog. The Product Owner may do the work of Product Backlog management or may delegate the responsibility to others. Regardless, the Product Owner remains accountable. (Scrum Guide 2020)"
-    }
+    },
     {
         id: 76,
         text: "According to the Scrum Guide, what is the typical size of a Scrum Team?",
@@ -1407,7 +1407,7 @@ const ALL_QUESTIONS = [
             { text: "The Sprint Goal is met.", correct: false }
         ],
         explanation: "The Definition of Done is a formal description of the state of the Increment when it meets the quality measures required for the product. In order to provide value, the Increment must be usable. (Scrum Guide 2020, Commitment: Definition of Done & Increment sections)"
-    }
+    },
     {
         id: 126,
         text: "Is it the Scrum Master's accountability to order the Product Backlog items for maximizing value?",
