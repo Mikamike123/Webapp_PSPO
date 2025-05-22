@@ -556,7 +556,7 @@ const ALL_QUESTIONS = [
             { text: "False", correct: true }
         ],
         explanation: "If a Product Backlog item does not meet the Definition of Done, it cannot be released or even presented at the Sprint Review. Instead, it returns to the Product Backlog for future consideration and re-prioritization by the Product Owner. It is not automatically moved to the next Sprint. (Scrum Guide 2020)"
-    }
+    },
     {
         id: 51,
         text: "What is the primary responsibility of the Scrum Master in relation to the Daily Scrum?",
