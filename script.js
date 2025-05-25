@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const quizAreaDiv = document.getElementById('quiz-area');
     const resultsAreaDiv = document.getElementById('results-area');
     const reviewAreaDiv = document.getElementById('review-area');
-    const podcastSectionDiv = document.getElementById('podcast-section'); // Nouvelle section
+    const podcastSectionDiv = document.getElementById('podcast-section'); 
 
     // Éléments de la sélection de mode
     const practiceQuestionCountSelect = document.getElementById('practice-question-count');
@@ -45,13 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToResultsBtn = document.getElementById('back-to-results-btn');
     const restartFromReviewBtn = document.getElementById('restart-from-review-btn');
 
-    // Éléments de la navigation principale et podcast (NOUVEAU)
+    // Éléments de la navigation principale et podcast
     const mainNav = document.getElementById('main-nav');
     const navButtons = document.querySelectorAll('.nav-btn');
     const contentSections = document.querySelectorAll('.content-section');
     const podcastPlayer = document.getElementById('podcast-player');
 
-    // Variables d'état du quiz
     let currentQuestions = [];
     let currentQuestionIndex = 0;
     let score = 0;
@@ -59,42 +58,39 @@ document.addEventListener('DOMContentLoaded', () => {
     let quizMode = ''; 
     let timerInterval;
     let timeLeft = 0; 
-
     const PASS_PERCENTAGE = 85;
 
     function setInitialUIState() {
         console.log("Setting initial UI state...");
         contentSections.forEach(section => {
-            section.classList.add('hidden');
+            if(section) section.classList.add('hidden');
         });
-        if (modeSelectionDiv) modeSelectionDiv.classList.remove('hidden'); // Afficher la sélection de mode par défaut
+        if (modeSelectionDiv) modeSelectionDiv.classList.remove('hidden');
         
-        navButtons.forEach(btn => {
-            if (btn.dataset.section === "mode-selection") {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
+        if(navButtons) {
+            navButtons.forEach(btn => {
+                if (btn.dataset.section === "mode-selection") {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
         
         if (quizHeaderControls) quizHeaderControls.classList.add('hidden'); 
         if (timerDisplayContainer) timerDisplayContainer.classList.add('hidden');
-        if (podcastPlayer && !podcastPlayer.paused) podcastPlayer.pause(); // S'assurer que le podcast est en pause
+        if (podcastPlayer && !podcastPlayer.paused) podcastPlayer.pause();
         console.log("Initial UI state set.");
     }
     
-    // --- Event Listeners ---
     if (startPracticeBtn) startPracticeBtn.addEventListener('click', () => startQuiz('practice'));
     if (startExamBtn) startExamBtn.addEventListener('click', () => startQuiz('exam'));
-    
     if (nextQuestionBtn) nextQuestionBtn.addEventListener('click', handleNextQuestion);
     if (prevQuestionBtn) prevQuestionBtn.addEventListener('click', handlePreviousQuestion);
     if (submitAnswerBtn) submitAnswerBtn.addEventListener('click', handleSubmitAnswerPractice);
     if (submitExamBtn) submitExamBtn.addEventListener('click', submitExam);
-
     if (restartQuizBtn) restartQuizBtn.addEventListener('click', resetQuiz);
     if (reviewAnswersBtn) reviewAnswersBtn.addEventListener('click', showReviewArea);
-    
     if (backToResultsBtn) {
         backToResultsBtn.addEventListener('click', () => {
             if(reviewAreaDiv) reviewAreaDiv.classList.add('hidden');
@@ -102,111 +98,84 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     if (restartFromReviewBtn) restartFromReviewBtn.addEventListener('click', resetQuiz);
-    
     if(exitQuizBtn) { 
         exitQuizBtn.addEventListener('click', () => {
             if (confirm("Are you sure you want to exit? Your current progress will be lost.")) {
-                resetQuiz(); // resetQuiz ramènera à la sélection de mode
+                resetQuiz(); 
             }
         });
     }
 
-    // --- GESTION DE LA NAVIGATION PRINCIPALE ---
-    if (mainNav) {
+    if (mainNav && navButtons.length > 0 && contentSections.length > 0) {
         navButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const targetSectionId = button.dataset.section;
                 console.log("Navigating to section:", targetSectionId);
-
-                contentSections.forEach(section => {
-                    section.classList.add('hidden');
-                });
-
-                const targetSection = document.getElementById(targetSectionId);
-                if (targetSection) {
-                    targetSection.classList.remove('hidden');
+                let confirmExitQuiz = true;
+                if (quizMode && quizAreaDiv && !quizAreaDiv.classList.contains('hidden') && 
+                    targetSectionId !== 'quiz-area' && targetSectionId !== 'results-area' && targetSectionId !== 'review-area') {
+                    confirmExitQuiz = confirm("Exiting the current quiz will stop it and your progress will be lost. Are you sure?");
                 }
 
-                navButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
+                if (confirmExitQuiz) {
+                    contentSections.forEach(section => {
+                        if(section) section.classList.add('hidden');
+                    });
+                    const targetSection = document.getElementById(targetSectionId);
+                    if (targetSection) targetSection.classList.remove('hidden');
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
 
-                // Si on quitte une zone de quiz active pour aller au podcast
-                if (quizMode && !quizAreaDiv.classList.contains('hidden') && targetSectionId === 'podcast-section') {
-                    if (confirm("Exiting the current quiz will stop it. Are you sure?")) {
-                        clearInterval(timerInterval); // Arrêter le timer
-                        // Ne pas appeler resetQuiz() complètement pour ne pas revenir à mode-selection
-                        quizAreaDiv.classList.add('hidden'); 
-                        // quizMode reste actif pour potentiellement reprendre, ou alors le réinitialiser :
-                        // quizMode = '';
-                    } else {
-                        // L'utilisateur a annulé, réafficher la zone de quiz et réactiver le bouton de quiz
-                        if(quizAreaDiv) quizAreaDiv.classList.remove('hidden');
-                        button.classList.remove('active'); // Désactiver le bouton podcast
-                        navButtons.forEach(btn => { if(btn.dataset.section === "mode-selection") btn.classList.add('active');});
-                        return; // Ne pas continuer la navigation vers le podcast
+                    if (quizMode && quizAreaDiv && !quizAreaDiv.classList.contains('hidden') && targetSectionId !== 'quiz-area') {
+                         clearInterval(timerInterval);
+                         if (targetSectionId === 'podcast-section' || targetSectionId === 'mode-selection') { // Si on quitte vraiment le quiz
+                            quizMode = ''; 
+                            if (quizHeaderControls) quizHeaderControls.classList.add('hidden');
+                         }
                     }
-                }
-                
-                // Arrêter le podcast si on quitte la section podcast pour une autre section
-                if (podcastPlayer && !podcastPlayer.paused && targetSectionId !== 'podcast-section') {
-                    podcastPlayer.pause();
+                    if (podcastPlayer && !podcastPlayer.paused && targetSectionId !== 'podcast-section') {
+                        podcastPlayer.pause();
+                    }
+                } else {
+                     navButtons.forEach(btn => { if(btn.dataset.section === 'mode-selection' || (quizMode && btn.dataset.section === 'quiz-area')) btn.classList.add('active'); else btn.classList.remove('active'); });
+                    return; 
                 }
             });
         });
     }
     
-    setInitialUIState(); // APPEL INITIAL
+    setInitialUIState();
 
     function startQuiz(mode) {
         console.log(`Starting quiz in ${mode} mode`);
-        quizMode = mode;
-        currentQuestionIndex = 0;
-        score = 0;
-        userAnswers = [];
-        
+        quizMode = mode; currentQuestionIndex = 0; score = 0; userAnswers = [];
         let selectedCountInput = (mode === 'practice') ? practiceQuestionCountSelect : examQuestionCountSelect;
-
-        if (!selectedCountInput) {
-            alert(`Error: Count selection input for ${mode} mode not found.`);
-            resetQuiz(); return;
-        }
+        if (!selectedCountInput) { alert(`Error: Count selection input for ${mode} mode not found.`); resetQuiz(); return; }
         const selectedQuestionCount = parseInt(selectedCountInput.value);
-
-        if (isNaN(selectedQuestionCount) || selectedQuestionCount < 0) {
-            alert("Please select a valid number of questions.");
-            resetQuiz(); return;
-        }
+        if (isNaN(selectedQuestionCount) || selectedQuestionCount < 0) { alert("Please select a valid number of questions."); resetQuiz(); return; }
         
         let questionsToUse = [...ALL_QUESTIONS]; 
         currentQuestions = (selectedQuestionCount === 0) ? shuffleArray(questionsToUse) : shuffleArray(questionsToUse).slice(0, selectedQuestionCount);
 
-        if (ALL_QUESTIONS.length === 0 || (currentQuestions.length === 0 && selectedQuestionCount !== 0)) {
-            alert(ALL_QUESTIONS.length === 0 ? "No questions loaded. Please check questions.js." : "Not enough questions for selection. Starting with all available.");
-            if (ALL_QUESTIONS.length > 0 && selectedQuestionCount !==0) currentQuestions = shuffleArray([...ALL_QUESTIONS]);
-            else { resetQuiz(); return; }
+        if (ALL_QUESTIONS.length === 0) { alert("No questions loaded. Please check questions.js."); resetQuiz(); return; }
+        if (currentQuestions.length === 0 && selectedQuestionCount !== 0 ) {
+             alert(`Not enough questions for selection (${selectedQuestionCount}). Starting with all ${ALL_QUESTIONS.length} available questions or check data.`);
+            currentQuestions = shuffleArray([...ALL_QUESTIONS]);
+             if (currentQuestions.length === 0) { alert("No questions available at all."); resetQuiz(); return; }
         }
-        if (currentQuestions.length === 0 ) { 
-             alert("No questions available to start the quiz.");
-             resetQuiz(); return;
-        }
+        if (currentQuestions.length === 0 ) { alert("No questions available to start the quiz."); resetQuiz(); return; }
 
         if(totalQNumEl) totalQNumEl.textContent = currentQuestions.length;
-
-        contentSections.forEach(section => section.classList.add('hidden')); // Cacher toutes les sections
-        if(quizAreaDiv) quizAreaDiv.classList.remove('hidden'); // Afficher la zone du quiz
-
+        contentSections.forEach(section => {if(section) section.classList.add('hidden');});
+        if(quizAreaDiv) quizAreaDiv.classList.remove('hidden'); 
         if(feedbackContainerEl) feedbackContainerEl.classList.add('hidden');
         if(nextQuestionBtn) nextQuestionBtn.textContent = "Next Question"; 
-
         if(quizHeaderControls) quizHeaderControls.classList.remove('hidden'); 
         updateProgressBar(); 
 
         if (quizMode === 'exam') {
             const selectedDuration = parseInt(examDurationSelect.value);
-            if (isNaN(selectedDuration) || selectedDuration <= 0) {
-                alert("Please select a valid exam duration.");
-                resetQuiz(); return;
-            }
+            if (isNaN(selectedDuration) || selectedDuration <= 0) { alert("Please select a valid exam duration."); resetQuiz(); return; }
             timeLeft = selectedDuration * 60;
             startTimer();
             if(timerDisplayContainer) timerDisplayContainer.classList.remove('hidden'); 
@@ -218,14 +187,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if(prevQuestionBtn) prevQuestionBtn.classList.add('hidden'); 
             if(submitExamBtn) submitExamBtn.classList.add('hidden');
         }
-        
         displayQuestion(); 
     }
 
     function displayQuestion() {
-        if (currentQuestionIndex < 0 || currentQuestionIndex >= currentQuestions.length) {
-            updateProgressBar(); return;
-        }
+        if (currentQuestionIndex < 0 || currentQuestionIndex >= currentQuestions.length) { updateProgressBar(); return; }
         const question = currentQuestions[currentQuestionIndex];
         if(!question) { console.error(`Question at index ${currentQuestionIndex} is undefined.`); return; }
 
@@ -235,28 +201,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if(currentQNumEl) currentQNumEl.textContent = currentQuestionIndex + 1;
 
         if (quizMode === 'practice') {
-            if (feedbackContainerEl && feedbackContainerEl.classList.contains('hidden')) { 
-                if(submitAnswerBtn) submitAnswerBtn.classList.remove('hidden');
-                if(nextQuestionBtn) nextQuestionBtn.classList.add('hidden');
-            } else { 
-                if(submitAnswerBtn) submitAnswerBtn.classList.add('hidden');
-                if(nextQuestionBtn) nextQuestionBtn.classList.remove('hidden');
-            }
+            const isFeedbackVisible = feedbackContainerEl && !feedbackContainerEl.classList.contains('hidden');
+            if(submitAnswerBtn) submitAnswerBtn.classList.toggle('hidden', isFeedbackVisible);
+            if(nextQuestionBtn) nextQuestionBtn.classList.toggle('hidden', !isFeedbackVisible);
         } else { 
             if(submitAnswerBtn) submitAnswerBtn.classList.add('hidden');
         }
 
         question.options.forEach((option, index) => {
             const optionId = `q${currentQuestionIndex}_option${index}`;
-            const optionDiv = document.createElement('div');
-            optionDiv.classList.add('option-div'); 
-            const input = document.createElement('input');
-            input.id = optionId; input.name = `q${currentQuestionIndex}_options`; input.value = option.text; input.disabled = false; 
+            const optionDiv = document.createElement('div'); optionDiv.classList.add('option-div'); 
+            const input = document.createElement('input'); input.id = optionId; input.name = `q${currentQuestionIndex}_options`; input.value = option.text; input.disabled = false; 
             input.type = (question.type === 'mcq-multiple') ? 'checkbox' : 'radio';
-            const label = document.createElement('label');
-            label.htmlFor = optionId; label.textContent = option.text;
-            const feedbackIconSpan = document.createElement('span');
-            feedbackIconSpan.classList.add('feedback-icon');
+            const label = document.createElement('label'); label.htmlFor = optionId; label.textContent = option.text;
+            const feedbackIconSpan = document.createElement('span'); feedbackIconSpan.classList.add('feedback-icon');
             optionDiv.appendChild(input); optionDiv.appendChild(label); optionDiv.appendChild(feedbackIconSpan);
             if(optionsContainerEl) optionsContainerEl.appendChild(optionDiv);
         });
@@ -270,8 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
-        updateProgressBar(); 
-        updateNavigationButtons(); 
+        updateProgressBar(); updateNavigationButtons(); 
     }
     
     function updateNavigationButtons() {
@@ -336,9 +293,8 @@ document.addEventListener('DOMContentLoaded', () => {
         else userAnswers.push({ questionId: question.id, selectedOptions: selectedOptionValues, isCorrect: isCorrectOverall, mode: 'practice_submission' });
 
         if(feedbackContainerEl && explanationTextEl) {
-            feedbackContainerEl.className = isCorrectOverall ? 'correct' : 'incorrect'; // Simplifié
+            feedbackContainerEl.className = 'feedback-container ' + (isCorrectOverall ? 'correct' : 'incorrect');
             explanationTextEl.innerHTML = `<strong>Explanation:</strong><br>${question.explanation}`;
-            feedbackContainerEl.classList.remove('hidden');
         }
         if(optionsContainerEl) {
             optionsContainerEl.querySelectorAll('.option-div').forEach(div => {
@@ -411,6 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let finalScoreToShow = 0;
         let totalQuestionsForDisplay = currentQuestions.length;
         if (quizMode === 'practice') {
+            finalScoreToShow = 0; 
             const practiceSubmissions = userAnswers.filter(ua => ua.mode === 'practice_submission');
             const answeredQuestionIds = new Set();
             practiceSubmissions.forEach(ps => {
@@ -421,13 +378,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const percentage = totalQuestionsForDisplay > 0 ? Math.round((finalScoreToShow / totalQuestionsForDisplay) * 100) : 0;
         if(scoreTextEl) scoreTextEl.textContent = `Your Score: ${finalScoreToShow} out of ${totalQuestionsForDisplay} (${percentage}%)`;
 		if(passFailTextEl) {
-            if (percentage === 100) { // Easter Egg pour un score parfait !
+            if (percentage === 100) { 
                 passFailTextEl.textContent = "💯 PERFECT SCORE! L'équipe ROSA a bien de la chance d'avoir un PO comme toi! 🧠✨";
-                passFailTextEl.className = 'pass-fail-text pass easter-egg'; // Ajout d'une classe pour un style spécial si besoin
-            } else if (percentage >= 95) { // Un autre message spécial pour un score très élevé
+                passFailTextEl.className = 'pass-fail-text pass easter-egg'; 
+            } else if (percentage >= 95) { 
                  passFailTextEl.textContent = "🎉 Outstanding! You've truly mastered this! Almost perfect! 🚀";
                  passFailTextEl.className = 'pass-fail-text pass excellent-score';
-            } else if (percentage >= PASS_PERCENTAGE) { // Seuil de réussite normal (85%)
+            } else if (percentage >= PASS_PERCENTAGE) { 
                 passFailTextEl.textContent = "Congratulations! You Passed!";
                 passFailTextEl.className = 'pass-fail-text pass';
             } else {
@@ -436,17 +393,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         populateReviewSummary();
+        // quizMode = ''; // Ne pas réinitialiser quizMode ici, car on peut vouloir revoir les réponses du même quiz
     }
 
     function populateReviewSummary() {
         if(!reviewSummaryEl) return;
         reviewSummaryEl.innerHTML = ''; 
         currentQuestions.forEach((q, index) => {
-            const userAnswer = userAnswers.find(ua => ua.questionId === q.id && 
-                ( (quizMode === 'exam' && (!ua.mode || ua.mode.startsWith('exam_'))) || (quizMode === 'practice' && ua.mode === 'practice_submission') ) );
+            // Pour le résumé, on veut la dernière réponse soumise pour cette question, quel que soit le mode exact de soumission
+            const userAnswer = userAnswers.slice().reverse().find(ua => ua.questionId === q.id);
+
             const item = document.createElement('div'); item.classList.add('summary-item');
-            let correctnessText = (quizMode === 'practice' && !userAnswer) ? 'Skipped' : 'Not Answered';
+            let correctnessText = 'Not Answered / Skipped';
             let correctnessClass = 'not-answered';
+
             if (userAnswer && typeof userAnswer.isCorrect === 'boolean') {
                 correctnessText = userAnswer.isCorrect ? 'Correct' : 'Incorrect';
                 correctnessClass = userAnswer.isCorrect ? 'correct' : 'incorrect';
@@ -461,19 +421,48 @@ document.addEventListener('DOMContentLoaded', () => {
         if(resultsAreaDiv) resultsAreaDiv.classList.add('hidden');
         if(reviewAreaDiv) reviewAreaDiv.classList.remove('hidden');
         if(!reviewContentEl) return; reviewContentEl.innerHTML = ''; 
+
         currentQuestions.forEach((question, index) => {
-            const userAnswerData = userAnswers.find(ua => ua.questionId === question.id && 
-                ( (quizMode === 'exam' && (!ua.mode || ua.mode.startsWith('exam_'))) || (quizMode === 'practice' && ua.mode === 'practice_submission') ) );
+            // Pour la revue, on utilise la même logique que pour le résumé pour trouver la réponse de l'utilisateur
+            const userAnswerData = userAnswers.slice().reverse().find(ua => ua.questionId === question.id);
             const selectedOptsInReview = (userAnswerData && userAnswerData.selectedOptions) ? userAnswerData.selectedOptions : [];
+            
             const questionBlock = document.createElement('div'); questionBlock.classList.add('review-question-block');
             const questionTitle = document.createElement('h4'); questionTitle.textContent = `Question ${index + 1}: ${question.text}`; questionBlock.appendChild(questionTitle);
             const optionsDiv = document.createElement('div'); optionsDiv.classList.add('review-options');
+            
             question.options.forEach(opt => {
-                const optionItem = document.createElement('div'); optionItem.classList.add('option-item'); optionItem.textContent = opt.text;
-                if (opt.correct) optionItem.classList.add('correct-answer');
+                const optionItem = document.createElement('div'); 
+                optionItem.classList.add('option-div'); // Utiliser .option-div pour un style cohérent
+                
+                const input = document.createElement('input');
+                input.type = (question.type === 'mcq-multiple') ? 'checkbox' : 'radio';
+                input.name = `review_q${index}_option_${opt.text.replace(/\s+/g, '')}`; // Nom unique pour les radios
+                input.disabled = true;
+                
+                const label = document.createElement('label');
+                label.textContent = " " + opt.text; // Espace pour le style
+
+                const feedbackIcon = document.createElement('span');
+                feedbackIcon.classList.add('feedback-icon');
+
+                optionItem.appendChild(input);
+                optionItem.appendChild(label);
+                optionItem.appendChild(feedbackIcon);
+
+                if (opt.correct) {
+                    optionItem.classList.add('actual-correct');
+                    feedbackIcon.textContent = '✓';
+                }
                 if (selectedOptsInReview.includes(opt.text)) {
+                    input.checked = true;
                     optionItem.classList.add('user-selected');
-                    if (!opt.correct) optionItem.classList.add('incorrect-selection');
+                    if (opt.correct) {
+                        optionItem.classList.add('correct-choice');
+                    } else {
+                        optionItem.classList.add('incorrect-choice');
+                        feedbackIcon.textContent = '✗'; 
+                    }
                 }
                 optionsDiv.appendChild(optionItem);
             });
@@ -484,18 +473,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function resetQuiz() {
-        console.log("Resetting quiz");
+    function resetQuiz() { 
+        console.log("Resetting quiz to mode selection");
         clearInterval(timerInterval);
+        quizMode = ''; 
         setInitialUIState(); 
         if(timerDisplaySpan) timerDisplaySpan.textContent = '--:--'; 
         if(progressBar) progressBar.style.width = '0%';
         if(nextQuestionBtn) nextQuestionBtn.textContent = "Next Question"; 
-        quizMode = ''; // Important: Réinitialiser le quizMode
     }
 
     function startTimer() {
-        console.log("Starting timer");
         clearInterval(timerInterval); updateTimerDisplay(); 
         timerInterval = setInterval(() => {
             timeLeft--; updateTimerDisplay();
@@ -529,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		navigator.serviceWorker.register('./sw.js').then(registration => {
 		// console.log('ServiceWorker registration successful with scope: ', registration.scope);
 		}, err => {
-		// console.log('ServiceWorker registration failed: ', err);
+		    console.error('ServiceWorker registration failed: ', err);
     });
   });
 }
