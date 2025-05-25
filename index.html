@@ -2,8 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>PSPO I Revision App</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PSPO Quiz">
+    <link rel="apple-touch-icon" href="icons/favicon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/favicon-192x192.png">
+    <meta name="theme-color" content="#007acc">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.png" type="image/png">
 </head>
@@ -16,87 +23,102 @@
             </div>
         </header>
 
-        <div id="mode-selection">
-            <h2>Choose a Mode:</h2>
-            
-            <div class="mode-option-card">
-                <h3>Practice Mode</h3>
-                <label for="practice-question-count">Number of Questions:</label>
-                <select id="practice-question-count">
-                    <option value="5">5 Questions</option>
-                    <option value="10" selected>10 Questions</option>
-                    <option value="20">20 Questions</option>
-                    <option value="0">All Questions</option> {/* Option pour toutes les questions */}
-                </select>
-                <button id="start-practice-btn">Start Practice</button>
+        <nav id="main-nav">
+            <button data-section="mode-selection" class="nav-btn active">Quiz Modes</button>
+            <button data-section="podcast-section" class="nav-btn">Podcast</button>
+        </nav>
+
+        <main id="main-content">
+            <div id="mode-selection" class="content-section">
+                <h2>Choose a Mode:</h2>
+                <div class="mode-option-card">
+                    <h3>Practice Mode</h3>
+                    <label for="practice-question-count">Number of Questions:</label>
+                    <select id="practice-question-count">
+                        <option value="5">5 Questions</option>
+                        <option value="10" selected>10 Questions</option>
+                        <option value="20">20 Questions</option>
+                        <option value="0">All Questions</option>
+                    </select>
+                    <button id="start-practice-btn">Start Practice</button>
+                </div>
+                <div class="mode-option-card">
+                    <h3>Exam Mode</h3>
+                    <label for="exam-question-count">Number of Questions:</label>
+                    <select id="exam-question-count">
+                        <option value="10">10 Questions (Quick Test)</option>
+                        <option value="20">20 Questions</option>
+                        <option value="40">40 Questions</option>
+                        <option value="80" selected>80 Questions (Full PSPO I)</option>
+                    </select>
+                    <label for="exam-duration">Duration:</label>
+                    <select id="exam-duration">
+                        <option value="15">15 Minutes</option>
+                        <option value="30">30 Minutes</option>
+                        <option value="60" selected>60 Minutes</option>
+                        <option value="90">90 Minutes (for 80q)</option>
+                    </select>
+                    <button id="start-exam-btn">Start Exam</button>
+                </div>
             </div>
 
-            <div class="mode-option-card">
-                <h3>Exam Mode</h3>
-                <label for="exam-question-count">Number of Questions:</label>
-                 <select id="exam-question-count">
-                     <option value="10">10 Questions (Quick Test)</option>
-                     <option value="20">20 Questions</option>
-                     <option value="40">40 Questions</option>
-                     <option value="80" selected>80 Questions (Full PSPO I)</option>
-                 </select>
-                 <label for="exam-duration">Duration:</label>
-                 <select id="exam-duration">
-                     <option value="15">15 Minutes</option>
-                     <option value="30">30 Minutes</option>
-                     <option value="60" selected>60 Minutes</option>
-                     <option value="90">90 Minutes (for 80q)</option>
-                 </select>
-                 <button id="start-exam-btn">Start Exam</button>
-            </div>
-        </div>
-
-        <div id="quiz-area" class="hidden">
-            <div class="quiz-header-controls">
-                <button id="exit-quiz-btn" class="small-header-btn">Exit Quiz</button> 
-                <div id="timer-display" class="hidden">Time Left: <span id="time">--:--</span></div>
-            </div>
-
-            
-            <div id="progress-bar-container"> 
-                <div id="progress-bar"></div>
-            </div>
-            <div id="question-counter">Question <span id="current-q-num"></span> of <span id="total-q-num"></span></div>
-            
-            <div id="question-container">
-                <p id="question-text"></p>
-                <div id="options-container"></div>
+            <div id="quiz-area" class="content-section hidden">
+                <div class="quiz-header-controls">
+                    <button id="exit-quiz-btn" class="small-header-btn">Exit Quiz</button> 
+                    <div id="timer-display" class="hidden">Time Left: <span id="time">--:--</span></div>
+                </div>
+                <div id="progress-bar-container"> 
+                    <div id="progress-bar"></div>
+                </div>
+                <div id="question-counter">Question <span id="current-q-num"></span> of <span id="total-q-num"></span></div>
+                <div id="question-container">
+                    <p id="question-text"></p>
+                    <div id="options-container"></div>
+                </div>
+                <div id="feedback-container" class="hidden">
+                    <h4>Explanation:</h4>
+                    <p id="explanation-text"></p>
+                </div>
+                <div class="navigation-buttons">
+                    <button id="prev-question-btn" class="hidden">Previous</button>
+                    <button id="next-question-btn">Next Question</button>
+                    <button id="submit-answer-btn" class="hidden">Submit Answer</button>
+                    <button id="submit-exam-btn" class="hidden">Submit Exam</button>
+                </div>
             </div>
 
-            <div id="feedback-container" class="hidden">
-                <h4>Explanation:</h4>
-                <p id="explanation-text"></p>
+            <div id="results-area" class="content-section hidden">
+                <h2>Results</h2>
+                <p id="score-text"></p>
+                <p id="pass-fail-text"></p>
+                <div id="review-summary"></div>
+                <div class="button-group"> 
+                    <button id="review-answers-btn">Review My Answers</button>
+                    <button id="restart-quiz-btn">Start New Quiz</button>
+                </div>
             </div>
 
-            <div class="navigation-buttons">
-                <button id="prev-question-btn" class="hidden">Previous</button>
-                <button id="next-question-btn">Next Question</button>
-                <button id="submit-answer-btn" class="hidden">Submit Answer</button>
-                <button id="submit-exam-btn" class="hidden">Submit Exam</button>
+            <div id="review-area" class="content-section hidden">
+                <h2>Review Answers</h2>
+                <div id="review-content"></div>
+                <div class="button-group"> {/* Ajout d'un conteneur pour les boutons */}
+                    <button id="back-to-results-btn">Back to Results</button>
+                    <button id="restart-from-review-btn">Start New Quiz</button>
+                </div>
             </div>
-        </div>
 
-        <div id="results-area" class="hidden">
-            <h2>Results</h2>
-            <p id="score-text"></p>
-            <p id="pass-fail-text"></p>
-            <div id="review-summary"></div>
-            <button id="review-answers-btn">Review My Answers</button>
-            <button id="restart-quiz-btn">Start New Quiz</button>
-        </div>
-
-        <div id="review-area" class="hidden">
-            <h2>Review Answers</h2>
-            <div id="review-content"></div>
-            <button id="back-to-results-btn">Back to Results</button>
-            <button id="restart-from-review-btn">Start New Quiz</button>
-        </div>
-
+            <div id="podcast-section" class="content-section hidden">
+                <h2>Scrum Guide Podcast</h2>
+                <p>Listen to the audio version of the Scrum Guide (November 2020).</p>
+                <div class="audio-player-container">
+                    <audio id="podcast-player" controls controlsList="nodownload"> {/* Ajout de controlsList */}
+                        <source src="audio/The Scrum Guide 2020_en.mp3" type="audio/mpeg"> {/* Changé en mp3 */}
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <p><em>Podcast generated by NotebookLM.</em></p>
+            </div>
+        </main>
     </div>
 
     <script src="questions.js"></script>

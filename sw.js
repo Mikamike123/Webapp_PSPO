@@ -1,5 +1,5 @@
 // sw.js
-const CACHE_NAME = 'pspo-quiz-cache-v3'; // J'ai incrémenté la version à v2
+const CACHE_NAME = 'pspo-quiz-cache-v5'; // J'ai incrémenté la version à v2
 const urlsToCache = [
   './', 
   './index.html',
@@ -16,7 +16,8 @@ const urlsToCache = [
   './icons/favicon-152x152.png',
   './icons/favicon-192x192.png',
   './icons/favicon-384x384.png',
-  './icons/favicon-512x512.png'
+  './icons/favicon-512x512.png',
+  './audio/The Scrum Guide 2020_en.mp3'  
 ];
 
 self.addEventListener('install', event => {

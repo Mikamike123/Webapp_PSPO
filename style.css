@@ -37,7 +37,7 @@ header {
     align-items: center;
     border-bottom: 1px solid #e9ecef; 
     padding-bottom: 15px;
-    margin-bottom: 25px; 
+    margin-bottom: 20px; 
 }
 
 header h1 {
@@ -51,11 +51,67 @@ header h1 {
     width: auto;
 }
 
+/* Main Navigation Styles */
+#main-nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+}
+
+.nav-btn {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-btn:hover {
+    background-color: #e0e0e0;
+    border-color: #bbb;
+}
+
+.nav-btn.active {
+    background-color: #007acc;
+    color: white;
+    border-color: #007acc;
+}
+
+/* Mode Selection Styles */
+#mode-selection { 
+    display: flex;
+    flex-direction: column; /* Comportement par défaut pour mobile */
+    gap: 20px; /* Espace entre les cartes */
+    align-items: center; /* Centrer les cartes lorsqu'elles sont en colonne */
+}
+
 #mode-selection h2 {
     font-size: 1.4em;
-    margin-bottom: 20px;
-    text-align: center; /* Ajout pour centrer le titre principal */
+    margin-bottom: 20px; /* Conserver la marge du titre global */
+    text-align: center; 
+    width: 100%; /* S'assurer que le titre prend toute la largeur pour un centrage correct */
 }
+
+.mode-option-card { 
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fdfdfd;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    width: 100%; /* Les cartes prennent la largeur de #mode-selection */
+    max-width: 450px; /* Limite la largeur sur mobile pour une meilleure présentation */
+    box-sizing: border-box;
+    /* margin-bottom est géré par le 'gap' sur #mode-selection */
+}
+
 .mode-option-card h3 {
     font-size: 1.2em;
     margin-top: 0; 
@@ -64,34 +120,34 @@ header h1 {
 }
 .mode-option-card label { 
     display: block;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    font-weight: bold; /* Rendu gras pour plus de clarté */
+    margin-top: 12px; /* Espacement augmenté */
+    margin-bottom: 6px; /* Espacement augmenté */
+    font-weight: bold; 
     color: #555;
 }
-.mode-option-card select { /* Styles unifiés pour select */
+.mode-option-card select { 
     font-size: 0.95em; 
-    width: 90%; 
+    width: 90%; /* Par rapport à la carte */
     max-width: 280px; 
     padding: 10px 12px; 
-    margin-bottom: 18px; 
+    margin-bottom: 20px; /* Espacement augmenté */
     border-radius: 5px; 
     border: 1px solid #ccc; 
     box-sizing: border-box; 
     background-color: #fff;
 }
-.mode-option-card button { /* Styles unifiés pour les boutons dans les cartes */
+.mode-option-card button { 
     display: inline-block;
     width: auto;
-    min-width: 150px; /* Largeur minimale pour une bonne apparence */
-    padding: 12px 20px; /* Padding ajusté */
-    margin-top: 10px;
+    min-width: 160px; /* Largeur minimale pour les boutons Start */
+    padding: 12px 25px; /* Padding plus généreux */
+    margin-top: 10px; /* Un peu d'espace après les selects */
     background-color: #007acc;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 0.95em;
+    font-size: 1em; /* Taille de police standard pour boutons principaux */
     font-weight: 500;
     transition: background-color 0.3s ease;
     text-align: center;
@@ -100,22 +156,22 @@ header h1 {
     background-color: #005fa3;
 }
 
-#mode-selection { 
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
 
-@media (min-width: 768px) {
+@media (min-width: 768px) { /* Styles pour écrans plus larges */
     #mode-selection {
-        flex-direction: row;
-        justify-content: space-around;
+        flex-direction: row; /* Cartes côte à côte */
+        justify-content: center; /* Centrer le groupe de cartes */
+        align-items: stretch; /* Les cartes auront la même hauteur */
+        gap: 30px; /* Espace entre les cartes */
     }
     .mode-option-card {
-        flex: 1;
-        max-width: 48%;
+        flex: 1 1 0; /* Permet aux cartes de grandir/rétrécir équitablement */
+        width: auto; /* Laisser flex gérer la largeur, enlever le width: 100% */
+        max-width: 380px; /* Limiter la largeur max de chaque carte */
+        /* margin-bottom: 0; géré par gap */
     }
 }
+
 
 /* Quiz Area Styles */
 #quiz-area {
@@ -224,7 +280,6 @@ header h1 {
     font-weight: bold; 
 }
 
-/* Styles for feedback on options in practice mode - AVEC !important */
 #options-container .option-div.user-selected.correct-choice {
     background-color: #d4edda !important; 
     border-color: #c3e6cb !important;
@@ -234,7 +289,6 @@ header h1 {
 .option-div.correct-choice .feedback-icon {
     color: #155724 !important; 
 }
-
 #options-container .option-div.user-selected.incorrect-choice {
     background-color: #f8d7da !important; 
     border-color: #f5c6cb !important;
@@ -244,7 +298,6 @@ header h1 {
 .option-div.incorrect-choice .feedback-icon {
     color: #721c24 !important; 
 }
-
 #options-container .option-div.actual-correct { 
     font-weight: bold !important;
 }
@@ -255,7 +308,6 @@ header h1 {
 .option-div.actual-correct .feedback-icon { 
     color: #155724 !important;
 }
-
 #options-container .option-div.disabled-option { 
     cursor: default;
     opacity: 0.9; 
@@ -264,7 +316,6 @@ header h1 {
     background-color: #f9f9f9; 
     border-color: #ddd;
 }
-
 
 .navigation-buttons {
     margin-top: 30px; 
@@ -362,10 +413,9 @@ header h1 {
 .summary-item.incorrect { color: #721c24; }
 .summary-item.not-answered { color: #777; font-style: italic; } 
 
-/* Styles pour les boutons dans les sections de résultats et de revue */
 #results-area .button-group,
 #review-area .button-group {
-    text-align: center; /* Centrer les boutons */
+    text-align: center; 
     margin-top: 20px;
 }
 
@@ -373,9 +423,9 @@ header h1 {
 #review-area button {
     display: inline-block; 
     width: auto;          
-    min-width: 160px;      /* Largeur minimale pour une bonne apparence */
+    min-width: 160px;      
     padding: 10px 20px;   
-    margin: 10px 8px;      /* Marge pour espacement entre les boutons */
+    margin: 10px 8px;      
     background-color: #007acc; 
     color: white;
     border: none;
@@ -386,56 +436,47 @@ header h1 {
     transition: background-color 0.3s ease;
     text-align: center;    
 }
-
 #results-area button:hover, 
 #review-area button:hover {
     background-color: #005fa3; 
 }
 
+/* Podcast Section Styles */
+#podcast-section {
+    padding: 20px;
+    border-top: 1px solid #eee; 
+    margin-top: 20px;
+}
+#podcast-section h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+#podcast-section p {
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    color: #555;
+}
+.audio-player-container {
+    margin: 20px auto;
+    max-width: 100%; 
+}
+#podcast-player {
+    width: 100%; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+}
+#podcast-section p em { 
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.85em;
+    color: #777;
+}
 
 .hidden {
     display: none !important;
-}
-
-/* Review Area Specifics */
-#review-content .review-question-block {
-    margin-bottom: 25px;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-#review-content .review-question-block h4 {
-    margin-top: 0;
-    font-size: 1.1em;
-}
-#review-content .review-options .option-item {
-    padding: 8px 10px; 
-    margin: 3px 0;
-    border-radius: 4px; 
-    border: 1px solid transparent; 
-}
-#review-content .review-options .user-selected {
-    font-weight: bold;
-    border-color: #aaa; 
-}
-#review-content .review-options .correct-answer {
-    background-color: #d4edda; 
-    border-color: #c3e6cb !important; 
-    color: #155724;
-}
-#review-content .review-options .incorrect-selection.user-selected {
-    background-color: #f8d7da; 
-    border-color: #f5c6cb !important; 
-    color: #721c24;
-}
-
-#review-content .review-explanation {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #e7f3fe; 
-    border: 1px solid #cce5ff;
-    border-radius: 3px;
-    font-size: 0.95em;
 }
 
 /* Responsive adjustments */
@@ -455,17 +496,29 @@ header h1 {
         height: 32px;
     }
 
+    #main-nav { 
+        flex-wrap: wrap; 
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+    .nav-btn {
+        padding: 8px 12px;
+        font-size: 0.9em;
+        margin: 5px; 
+    }
+
     #mode-selection {
-        flex-direction: column; 
-        gap: 15px;
+        /* flex-direction: column; déjà défini par défaut */
+        /* gap: 15px; déjà défini par défaut */
     }
     .mode-option-card {
-        max-width: 100%; 
+        /* max-width: 100%; déjà géré par width: 100% et le parent */
         padding: 15px;
     }
     .mode-option-card select {
         width: 100%; 
         font-size: 1em; 
+        max-width: none; /* Permettre pleine largeur sur mobile */
     }
      .mode-option-card button {
         width: 100%; 
@@ -494,14 +547,14 @@ header h1 {
     #results-area .button-group,
     #review-area .button-group {
         display: flex;
-        flex-direction: column; /* Empiler les boutons sur mobile */
+        flex-direction: column; 
         gap: 10px;
     }
 
     #results-area button, 
     #review-area button {
         width: 100%; 
-        margin: 5px 0; /* Ajuster les marges pour l'empilement vertical */
+        margin: 5px 0; 
         padding: 14px;
     }
 }
