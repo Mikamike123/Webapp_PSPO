@@ -1739,5 +1739,340 @@ const ALL_QUESTIONS = [
             { text: "When the Scrum Master asks for impediments.", correct: false }
         ],
         explanation: "Daily Scrums improve communications, identify impediments, promote quick decision-making... If an impediment is identified, it should be made transparent as soon as possible, with the Daily Scrum being a formal opportunity to do so. (Scrum Guide 2020, Daily Scrum section)"
+    },
+	{
+        id: 156, // Inspiré de "When can the Product Backlog be updated?"
+        text: "At what point in time can modifications be made to the Product Backlog?",
+        type: "mcq-single",
+        options: [
+            { text: "Only during the Sprint Review, with stakeholder approval.", correct: false },
+            { text: "Never, once a Sprint begins.", correct: false },
+            { text: "At any time, typically by the Product Owner or a delegate.", correct: true },
+            { text: "Exclusively during Product Backlog refinement sessions.", correct: false }
+        ],
+        explanation: "The Product Backlog is dynamic; it constantly changes to identify what the product needs to be appropriate, competitive, and useful. It can be updated at any time by the Product Owner or their delegate. (Implicit from Scrum Guide, Product Backlog section)"
+    },
+    {
+        id: 157, // Variation de la Q156
+        text: "Is it true that the Product Backlog can only be changed during official Product Backlog refinement meetings?",
+        type: "true-false",
+        options: [
+            { text: "True", correct: false },
+            { text: "False", correct: true }
+        ],
+        explanation: "False. The Product Backlog is a living artifact and can be updated by the Product Owner or their delegate at any time as new information emerges or priorities change. Refinement is an ongoing activity, not the sole window for changes. (Scrum Guide 2020, Product Backlog section)"
+    },
+    {
+        id: 158, // Inspiré de "The Product Owner will often monitor and share progress..."
+        text: "Which of the following methods might a Product Owner use to monitor and communicate progress of the Product Backlog's likely completion?",
+        type: "mcq-single",
+        options: [
+            { text: "Strictly a Gantt chart for detailed timelines.", correct: false },
+            { text: "Only a Value burn-up chart as prescribed by Scrum.", correct: false },
+            { text: "Any practice that helps forecast progress, like burn-downs or cumulative flows, while remembering the importance of empiricism.", correct: true },
+            { text: "A formal Sprint Review acceptance report signed by stakeholders.", correct: false }
+        ],
+        explanation: "Various practices exist to forecast progress, like burn-downs, burn-ups, or cumulative flows. While proven useful, these do not replace the importance of empiricism. What will happen is unknown, only what has already happened may be used for forward-looking decision making. (Scrum Guide 2020, The Sprint section)"
+    },
+    {
+        id: 159, // Variation de la Q158
+        text: "Are Product or Release burn-down charts mandatory tools for a Product Owner to track progress according to Scrum?",
+        type: "true-false",
+        options: [
+            { text: "True, they are essential for transparency.", correct: false },
+            { text: "False, while useful, no specific forecasting tools are mandated by Scrum; empiricism is key.", correct: true }
+        ],
+        explanation: "False. The Scrum Guide mentions practices like burn-downs but states they do not replace empiricism. Scrum does not mandate specific tools for forecasting. (Scrum Guide 2020, The Sprint section)"
+    },
+    {
+        id: 160, // Inspiré de "In order to make investment decisions, the Product Owner is likely to look at TCO..."
+        text: "When considering the Total Cost of Ownership (TCO) for a product, what should a Product Owner primarily take into account?",
+        type: "mcq-single",
+        options: [
+            { text: "Only the initial development and delivery costs.", correct: false },
+            { text: "All investments needed to conceive, develop, operate, and maintain the product throughout its lifecycle.", correct: true },
+            { text: "The accumulated cost over the earned value of the product.", correct: false },
+            { text: "The cost of the Scrum Team's salaries during development.", correct: false }
+        ],
+        explanation: "The Product Owner is accountable for maximizing value, which involves understanding the TCO. This includes not just development but also ongoing operation and maintenance costs over the product's lifetime."
+    },
+    {
+        id: 161, // Variation de la Q160
+        text: "Does TCO for a Product Owner only include the budget spent on active development Sprints?",
+        type: "true-false",
+        options: [
+            { text: "True, because Sprints are where value is created.", correct: false },
+            { text: "False, TCO includes all costs across the product's lifecycle, including operation and maintenance.", correct: true }
+        ],
+        explanation: "False. Total Cost of Ownership (TCO) is a holistic view of all expenses related to a product, from its conception through development, operation, maintenance, and eventual retirement."
+    },
+    {
+        id: 162, // Inspiré de "Is the Product Owner required to be present at the Sprint Retrospective?"
+        text: "Regarding the Product Owner's attendance at the Sprint Retrospective, which statement is most accurate according to Scrum?",
+        type: "mcq-single",
+        options: [
+            { text: "They are not allowed, as it's an event solely for the Developers.", correct: false },
+            { text: "Their attendance is optional and only if invited by the Scrum Master.", correct: false },
+            { text: "Their attendance is mandatory as a member of the Scrum Team, which inspects itself.", correct: true },
+            { text: "They only attend if there are product-specific issues to discuss.", correct: false }
+        ],
+        explanation: "The Sprint Retrospective is an event for the Scrum Team (which includes the Product Owner, Scrum Master, and Developers) to inspect itself and create a plan for improvements. (Scrum Guide 2020, Sprint Retrospective section)"
+    },
+    {
+        id: 163, // Variation de la Q162
+        text: "The Product Owner is explicitly excluded from participating in the Sprint Retrospective.",
+        type: "true-false",
+        options: [
+            { text: "True", correct: false },
+            { text: "False", correct: true }
+        ],
+        explanation: "False. The Sprint Retrospective is for the Scrum Team. The Product Owner is a member of the Scrum Team and participates in this event. (Scrum Guide 2020, Sprint Retrospective section)"
+    },
+    {
+        id: 164, // Inspiré de "To create focus which of the following are most important..."
+        text: "To ensure focus when Sprint Planning begins, which two elements are most crucial for the Product Owner to have prepared or communicated?",
+        type: "mcq-multiple",
+        options: [
+            { text: "Formal budget approval for the Sprint.", correct: false },
+            { text: "A Product Backlog with the most important items ready for discussion.", correct: true },
+            { text: "A clear cadence for all Daily Scrums.", correct: false },
+            { text: "A fixed and non-negotiable Sprint Goal.", correct: false }, // Sprint Goal is defined *during* Sprint Planning
+            { text: "A fully refined and estimated Product Backlog for the next three Sprints.", correct: false },
+            { text: "The Product Goal, clearly communicated.", correct: true }
+        ],
+        explanation: "Sprint Planning initiates the Sprint. The Product Owner ensures that attendees are prepared to discuss the most important Product Backlog items and how they map to the Product Goal. (Scrum Guide 2020, Sprint Planning section)"
+    },
+    {
+        id: 165, // Variation de la Q164
+        text: "Is it a prerequisite for Sprint Planning that the Product Owner has a fully detailed and estimated Product Backlog for the entire product release?",
+        type: "true-false",
+        options: [
+            { text: "True, to enable accurate planning.", correct: false },
+            { text: "False, only the most important items PDPN_À_DISCUTER et leur lien avec le Product Goal sont essentiels pour démarrer.", correct: true }
+        ],
+        explanation: "False. The Product Backlog is emergent. For Sprint Planning, the Product Owner ensures readiness to discuss the most important items and their relation to the Product Goal. Not all items need to be fully detailed. (Scrum Guide 2020, Sprint Planning & Product Backlog sections)"
+    },
+    {
+        id: 166, // Inspiré de "What is the principal value of releasing the Increment to customers?"
+        text: "What is a primary benefit for the Product Owner when an Increment is released to customers?",
+        type: "mcq-single",
+        options: [
+            { text: "To measure the Scrum Team's velocity.", correct: false },
+            { text: "To validate assumptions about value and gather feedback.", correct: true },
+            { text: "To demonstrate all functionalities developed during the Sprint.", correct: false },
+            { text: "To formally close the Sprint.", correct: false }
+        ],
+        explanation: "Releasing the Increment to customers or users is a key way to validate assumptions about value and get feedback for future product direction. This aligns with empiricism."
+    },
+    {
+        id: 167, // Variation de la Q166
+        text: "True or False: The main reason a Product Owner advocates for frequent releases of the Increment is to showcase the team's productivity.",
+        type: "true-false",
+        options: [
+            { text: "True", correct: false },
+            { text: "False", correct: true }
+        ],
+        explanation: "False. While productivity is a factor, a primary value of frequent releases for a Product Owner is to validate assumptions, gather feedback, and ensure the product is delivering value to customers, enabling adaptation. (Implicit from Scrum's empirical nature)"
+    },
+    {
+        id: 168, // Inspiré de "Adaptation requires regular inspection. In what ways does the PO contribute..."
+        text: "How does the Product Owner primarily contribute to 'adaptation' based on 'inspection'? (Select the best two answers)",
+        type: "mcq-multiple",
+        options: [
+            { text: "By inspecting the Sprint burn-down daily and re-planning the team's tasks.", correct: false }, // Devs adapt plan daily
+            { text: "By sharing the current state of the Product Backlog at the Sprint Review, which, combined with Increment inspection, leads to an adapted Product Backlog.", correct: true },
+            { text: "By verifying the Sprint Backlog for completeness at Sprint Planning to allow the Sprint to start.", correct: false }, // This is part of planning, not primarily adaptation post-inspection of outcome
+            { text: "By inviting stakeholders to the Sprint Review to learn how market changes influence what is most valuable to do next.", correct: true }
+        ],
+        explanation: "Inspection without adaptation is pointless. The Sprint Review is a formal event for inspection (of Increment, market) and adaptation (of Product Backlog). The PO uses stakeholder feedback and market insights from this event to adapt the Product Backlog. (Scrum Guide 2020, Adaptation & Sprint Review sections)"
+    },
+    {
+        id: 169, // Variation de la Q168
+        text: "Does the Product Owner's inspection of the team's daily task board directly lead to adaptation of the Product Backlog?",
+        type: "true-false",
+        options: [
+            { text: "True, this is how the PO ensures value is being delivered.", correct: false },
+            { text: "False, the PO adapts the Product Backlog based on inspection of the Increment and market feedback, typically from the Sprint Review.", correct: true }
+        ],
+        explanation: "False. Developers inspect progress towards the Sprint Goal and adapt the Sprint Backlog daily. The Product Owner inspects the outcome of the Sprint (the Increment) at the Sprint Review and adapts the Product Backlog based on that and stakeholder feedback. (Scrum Guide 2020)"
+    },
+    {
+        id: 170, // Inspiré de "What variables should a PO consider when ordering the Product Backlog?"
+        text: "When ordering the Product Backlog, what is the Product Owner's overarching consideration?",
+        type: "mcq-single",
+        options: [
+            { text: "The availability of resources and skills for implementation.", correct: false },
+            { text: "Minimizing development cost to maximize ROI.", correct: false }, // ROI is a factor in value, but not the SOLE ordering variable
+            { text: "Effort estimates provided by the Developers first, then value.", correct: false },
+            { text: "Anything that informs them how to best achieve the Product Goal and optimize the value delivered by the product.", correct: true }
+        ],
+        explanation: "The Product Owner is responsible for ordering the items in the Product Backlog to best achieve the Product Goal, thereby optimizing the value of the work the Developers perform. How this is done may vary widely. (Implicit from PO accountability, Scrum Guide 2020)"
+    },
+    {
+        id: 171, // Variation de la Q170
+        text: "Is the Product Owner required to order Product Backlog Items strictly by the lowest development effort first?",
+        type: "true-false",
+        options: [
+            { text: "True, to ensure quick wins.", correct: false },
+            { text: "False, the PO orders items to best achieve goals and optimize value, considering various factors including effort, risk, dependencies, and value.", correct: true }
+        ],
+        explanation: "False. While effort is a factor, the Product Owner orders the Product Backlog to maximize value towards the Product Goal. This involves balancing various factors, not just effort. (Scrum Guide 2020, Product Owner section)"
+    },
+    {
+        id: 172, // Inspiré de "What two things best help the PO manage the value of a product?"
+        text: "Which two of these are most fundamental in helping the Product Owner manage and maximize the value of a product?",
+        type: "mcq-multiple",
+        options: [
+            { text: "Setting precise value points on individual PBIs using techniques like Value Poker.", correct: false }, // Technique, not fundamental principle
+            { text: "The order of the Product Backlog.", correct: true },
+            { text: "Devising a complex formula for a neutral calculation of value.", correct: false },
+            { text: "Validating assumptions about value through frequent releases and feedback.", correct: true },
+            { text: "Ensuring all PBIs are small enough to be completed in one day.", correct: false }
+        ],
+        explanation: "The Product Owner manages the Product Backlog against the assumption that value will be generated. The order of the Product Backlog is a key tool for this. Validating assumptions by releasing Increments and gathering feedback is crucial for ensuring actual value is delivered and for adapting. (Implicit from Scrum principles)"
+    },
+    {
+        id: 173, // Variation de la Q172
+        text: "True or False: A Product Owner primarily manages product value by creating detailed financial projections for each Product Backlog Item.",
+        type: "true-false",
+        options: [
+            { text: "True, this is key for ROI.", correct: false },
+            { text: "False, while financial aspects are important, value management is more holistically done through ordering, focusing on the Product Goal, and validating assumptions via releases and feedback.", correct: true }
+        ],
+        explanation: "False. While ROI is a consideration, product value in Scrum is broader. The PO manages value through the Product Backlog order, alignment with the Product Goal, and empirical feedback from releases, not just detailed financial projections per item. (Implicit from Scrum Guide)"
+    },
+     {
+        id: 174, // Inspiré de "When does a Developer become accountable for the value of a PBI..."
+        text: "Who is ultimately accountable for the value delivered by a Product Backlog Item selected for the Sprint?",
+        type: "mcq-single",
+        options: [
+            { text: "The specific Developer who worked on that item.", correct: false },
+            { text: "The Product Owner, as they define what is valuable.", correct: true },
+            { text: "The entire Scrum Team, as they collectively create the Increment.", correct: false }, // Team creates valuable Increment, PO is accountable for maximizing value of *product*
+            { text: "The Scrum Master, by ensuring the process is followed.", correct: false }
+        ],
+        explanation: "The Product Owner is accountable for maximizing the value of the product resulting from the work of the Scrum Team. While Developers build the Increment, the PO guides what is valuable. (Scrum Guide 2020, Product Owner section)"
+    },
+    {
+        id: 175, // Variation de la Q174
+        text: "Are Developers individually accountable for the business value of each Product Backlog Item they implement?",
+        type: "true-false",
+        options: [
+            { text: "Yes, each Developer owns the value of their work.", correct: false },
+            { text: "False, the Product Owner is accountable for maximizing product value; the entire Scrum Team is accountable for creating a valuable Increment.", correct: true }
+        ],
+        explanation: "False. The Product Owner is accountable for maximizing the value of the product. The entire Scrum Team is accountable for creating a valuable, useful Increment. Developers are accountable for the quality and creation of the Increment. (Scrum Guide 2020)"
+    },
+    {
+        id: 176, // Inspiré de "To what extent does technical debt limit the value a PO can get..."
+        text: "How can significant technical debt impact a Product Owner's ability to maximize product value? (Select the best two answers)",
+        type: "mcq-multiple",
+        options: [
+            { text: "It often leads to a larger portion of the product's budget being spent on maintenance instead of new features.", correct: true },
+            { text: "It can reduce the velocity at which new, valuable functionality can be created and delivered.", correct: true },
+            { text: "Technical debt is solely a Developer concern and does not directly affect the Product Owner.", correct: false },
+            { text: "Technical debt primarily improves short-term delivery speed, thus increasing immediate value.", correct: false }
+        ],
+        explanation: "Technical debt can consume resources for bug fixing and refactoring (maintenance), reducing capacity for new value. It also often makes adding new features slower and more complex, thus reducing the speed of value delivery."
+    },
+    {
+        id: 177, // Variation de la Q176
+        text: "True or False: A Product Owner should generally ignore technical debt as it's a technical issue handled by the Developers.",
+        type: "true-false",
+        options: [
+            { text: "True, the PO focuses only on new features.", correct: false },
+            { text: "False, technical debt impacts the ability to deliver future value and TCO, which are PO concerns.", correct: true }
+        ],
+        explanation: "False. Technical debt directly impacts the product's long-term value, maintainability, and the speed at which new features can be added. These are all critical concerns for the Product Owner. Addressing technical debt can be a valuable PBI."
+    },
+    {
+        id: 178, // Inspiré de "Which description best fits the role of the Product Owner?"
+        text: "What is the most accurate description of the Product Owner's primary focus?",
+        type: "mcq-single",
+        options: [
+            { text: "Scope Protector, ensuring no changes are made to the Sprint Backlog.", correct: false },
+            { text: "Chief Business Analyst, detailing all requirements upfront.", correct: false },
+            { text: "Value Maximizer, ensuring the Scrum Team works on the most valuable things for the product.", correct: true },
+            { text: "Project Manager 2.0, coordinating all project activities.", correct: false },
+            { text: "Requirements Collector, gathering all stakeholder requests.", correct: false }
+        ],
+        explanation: "The Product Owner is accountable for maximizing the value of the product resulting from the work of the Scrum Team. (Scrum Guide 2020, Product Owner section)"
+    },
+    {
+        id: 179, // Variation de la Q178
+        text: "Is the Product Owner's role best described as a 'Requirements Collector' for the team?",
+        type: "true-false",
+        options: [
+            { text: "Yes, their main job is to gather all possible requirements.", correct: false },
+            { text: "No, they are accountable for maximizing product value, which involves more than just collecting requirements; it includes ordering, defining the Product Goal, and making strategic decisions.", correct: true }
+        ],
+        explanation: "No. While understanding requirements is part of it, the Product Owner's accountability is to maximize value. This involves strategic thinking, prioritization, and managing the Product Backlog to achieve the Product Goal. (Scrum Guide 2020, Product Owner section)"
+    },
+    {
+        id: 180, // Inspiré de "What are typical activities for a Product Owner in a Sprint?"
+        text: "Which of these activities are typical for a Product Owner during a Sprint? (Select the best two answers)",
+        type: "mcq-multiple",
+        options: [
+            { text: "Attending every Daily Scrum to provide task direction to Developers.", correct: false }, // Attends if participating as Dev, or invited to observe, not to direct
+            { text: "Creating detailed financial reports on Sprint expenditure daily.", correct: false },
+            { text: "Collaborating with stakeholders, user communities, and subject matter experts.", correct: true },
+            { text: "Working with the Developers on Product Backlog refinement.", correct: true },
+            { text: "Updating the detailed work plan for the Developers on a daily basis.", correct: false } // Devs plan their own work
+        ],
+        explanation: "The Product Owner represents the needs of many stakeholders in the Product Backlog. This requires active interaction. Product Backlog refinement is an ongoing activity in which the Product Owner and the Developers collaborate. (Scrum Guide 2020, Product Owner & Product Backlog Refinement)"
+    },
+    {
+        id: 181, // Variation de la Q180
+        text: "Is the Product Owner responsible for assigning daily tasks to the Developers during the Sprint?",
+        type: "true-false",
+        options: [
+            { text: "Yes, to ensure the Sprint Goal is met.", correct: false },
+            { text: "No, Developers are self-managing and pull work from the Sprint Backlog to meet the Sprint Goal.", correct: true }
+        ],
+        explanation: "No. Developers are self-managing. They decide who does what, when, and how to accomplish the Sprint Goal. The Product Owner clarifies PBIs and collaborates, but does not assign tasks. (Scrum Guide 2020, Scrum Team & Developers sections)"
+    },
+    {
+        id: 182, // Inspiré de "A Product Owner is entitled to postpone the start of a new Sprint..."
+        text: "Under what condition does the Scrum Guide state a new Sprint begins?",
+        type: "mcq-single",
+        options: [
+            { text: "Only when the Product Owner has identified a clear Sprint Goal.", correct: false },
+            { text: "Immediately after the conclusion of the previous Sprint.", correct: true },
+            { text: "When at least 80% of Product Backlog items for the Sprint are fully refined.", correct: false },
+            { text: "After stakeholders have formally approved the Increment from the previous Sprint.", correct: false }
+        ],
+        explanation: "A new Sprint starts immediately after the conclusion of the previous Sprint. (Scrum Guide 2020, The Sprint section)"
+    },
+    {
+        id: 183, // Variation de la Q182
+        text: "Can a Product Owner delay the start of a new Sprint if they feel more refinement is needed for the top Product Backlog items?",
+        type: "true-false",
+        options: [
+            { text: "Yes, to ensure a more productive Sprint Planning.", correct: false },
+            { text: "No, a new Sprint starts immediately after the previous one concludes; refinement is an ongoing activity.", correct: true }
+        ],
+        explanation: "No. Sprints create consistency. A new Sprint starts immediately after the conclusion of the previous Sprint. Product Backlog refinement is an ongoing activity to prepare items for future Sprints. (Scrum Guide 2020, The Sprint & Product Backlog Refinement sections)"
+    },
+    {
+        id: 184, // Inspiré de "How does an organization know that a product built using Scrum is successful?"
+        text: "What is a key indicator of a product's success when using Scrum?",
+        type: "mcq-single",
+        options: [
+            { text: "The Product Owner and stakeholders formally accepting the Increment at each Sprint Review.", correct: false },
+            { text: "The team consistently meeting its velocity targets.", correct: false },
+            { text: "Frequently releasing the Increment to the customer and measuring the value the customer receives.", correct: true },
+            { text: "Measuring that development time matches estimated time.", correct: false }
+        ],
+        explanation: "Scrum Teams deliver products iteratively and incrementally, maximizing opportunities for feedback. If the Increment is not released, the opportunity to capture customer feedback and measure the product's true value is lost."
+    },
+    {
+        id: 185, // Variation de la Q184
+        text: "True or False: A product built with Scrum is considered successful primarily if the team's velocity has increased since the last release.",
+        type: "true-false",
+        options: [
+            { text: "True, as higher velocity means more output.", correct: false },
+            { text: "False, success is primarily measured by the value delivered to and received by the customer, often validated through releases and feedback.", correct: true }
+        ],
+        explanation: "False. While velocity can be an indicator for the team, product success in Scrum is tied to delivering value. Measuring customer-received value through frequent releases is a more direct indicator of success than internal metrics like velocity alone."
     }
 ];
