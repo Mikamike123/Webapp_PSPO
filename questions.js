@@ -1848,7 +1848,7 @@ const ALL_QUESTIONS = [
         type: "true-false",
         options: [
             { text: "True, to enable accurate planning.", correct: false },
-            { text: "False, only the most important items PDPN_À_DISCUTER et leur lien avec le Product Goal sont essentiels pour démarrer.", correct: true }
+            { text: "False, only the most important items and their relation to the Product Goal.", correct: true }
         ],
         explanation: "False. The Product Backlog is emergent. For Sprint Planning, the Product Owner ensures readiness to discuss the most important items and their relation to the Product Goal. Not all items need to be fully detailed. (Scrum Guide 2020, Sprint Planning & Product Backlog sections)"
     },
