@@ -1,5 +1,5 @@
 // sw.js
-const CACHE_NAME = 'pspo-quiz-cache-v5'; // J'ai incrémenté la version à v2
+const CACHE_NAME = 'pspo-quiz-cache-v6'; // J'ai incrémenté la version à v2
 const urlsToCache = [
   './', 
   './index.html',
