@@ -81,8 +81,4 @@ Contributions are welcome! If you have suggestions for improvements or new featu
 For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
-
-This project is open source and available under the [MIT License](LICENSE). (You would need to create a `LICENSE` file with the MIT License text if you choose this).
-
-Alternatively, if no license is formally chosen, you can state:
 "No license is explicitly provided for this project at this time."
